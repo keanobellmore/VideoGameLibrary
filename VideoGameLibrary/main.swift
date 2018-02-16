@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import Darwin
+
 /*
  ADD GAME:
  1. Ask for name of the game
@@ -33,26 +33,45 @@ func checkGameIn(){
     print("what game would you like to check in?")
     var counter = 1
     print("Please select a number")
-    for game in VideoGames {
-        print("\(counter) \(game.name)")
-        counter += 1
+//    for game in VideoGames {
+//        if game.checkedIn == false {
+//        print("\(counter) \(game.name)")
+//        counter += 1
+//    }
+//    }
+    for i in 0...VideoGames.count - 1 {
+        if VideoGames[i].checkedIn == false {
+            print("\(i + 1) \(VideoGames[i].name)")
+        }
     }
+    let input = Int(readLine()!)!
+    VideoGames[input - 1].checkedIn = true
     let currentDate = Date()
     let calendar = Calendar.current
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "MM/dd/yyyy h:mm a"
-    let returnDate = calendar.date(byAdding: .day, value: 0, to: currentDate)!
+    _ = calendar.date(byAdding: .day, value: 0, to: currentDate)!
     mainMenu()
 }
 func checkGameOut() {
     print("what game would you like to check out?")
     var counter = 1
     print("Please select a number")
-    for game in VideoGames {
-        print("\(counter) \(game.name)")
-        counter += 1
+//    for game in VideoGames {
+//        if game.checkedIn == true {
+//        print("\(counter) \(game.name)")
+//        counter += 1
+//    }
+//    }
+    
+    for i in 0...VideoGames.count - 1 {
+        if VideoGames[i].checkedIn == true {
+            print("\(i + 1) \(VideoGames[i].name)")
+        }
     }
-    Int(readLine()!)!
+    
+    let game = Int(readLine()!)!
+    VideoGames[game - 1].checkedIn = false
     let currentDate = Date()
     let calendar = Calendar.current
     let dateFormatter = DateFormatter()
@@ -70,10 +89,11 @@ func removeGame() {
         print("\(counter) \(game.name)")
         counter += 1
     }
-    var input = Int(readLine()!)!
+    let input = Int(readLine()!)!
     VideoGames.remove(at: input - 1)
     mainMenu()
 }
+
 
 func addGame() {
     print("enter game name")
@@ -83,7 +103,7 @@ func addGame() {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "MM/dd/yyyy h:mm a"
     let returnDate = calendar.date(byAdding: .day, value: 3, to: currentDate)!
-    let game = videoGame(name: "\(userInput)", dueDate: returnDate)
+    let game = videoGame(name: "\(userInput)", dueDate: returnDate, checkedIn: true)
     VideoGames.append(game)
     mainMenu()
 }
@@ -96,7 +116,7 @@ func mainMenu() {
 5. Quit
 """)
     
-    var input = Int(readLine()!)!
+    let input = Int(readLine()!)!
     if input == 1 {
         addGame()
     }

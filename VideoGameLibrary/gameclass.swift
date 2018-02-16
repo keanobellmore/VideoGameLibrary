@@ -11,10 +11,12 @@ import Foundation
 class videoGame {
     var name: String
     var dueDate: Date
+    var checkedIn = true
     
-    init(name: String, dueDate: Date) {
+    init(name: String, dueDate: Date, checkedIn: Bool) {
         self.name = name
         self.dueDate = dueDate
+        self.checkedIn = checkedIn
     }
 }
 
